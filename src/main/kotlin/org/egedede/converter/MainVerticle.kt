@@ -27,12 +27,8 @@ class MainVerticle : AbstractVerticle() {
       val to = json.getString("unitTo")
       val  value = json.getDouble("value")
       val converted = value *2
-      val result = """
-          {
-            result:$converted
-          }
-      """.trimIndent()
-      it.response().setStatusCode(200).end(result)
+
+      it.response().setStatusCode(200).end(Response(converted).toJson())
 
     }
 
