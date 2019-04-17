@@ -10,6 +10,8 @@ import io.vertx.kotlin.core.json.get
 class MainVerticle : AbstractVerticle() {
 
   override fun start(startFuture: Future<Void>) {
+    val converter = ConverterService
+    converter.register(meterPerSecondToKilometersPerHour)
     var server = vertx.createHttpServer()
 
     var router = Router.router(vertx)
