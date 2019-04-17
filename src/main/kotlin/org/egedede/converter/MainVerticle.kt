@@ -10,8 +10,9 @@ import io.vertx.kotlin.core.json.get
 class MainVerticle : AbstractVerticle() {
 
   override fun start(startFuture: Future<Void>) {
-    val converter = ConverterService
+    val converter = ConverterService()
     converter.register(meterPerSecondToKilometersPerHour)
+    converter.register(kilometerPerHourToMinutePerKilometer)
     var server = vertx.createHttpServer()
 
     var router = Router.router(vertx)
@@ -25,10 +26,10 @@ class MainVerticle : AbstractVerticle() {
 
     router.post("/convert").handler{
       val json = it.bodyAsJson
-      val from = json.getString("unitFrom")
-      val to = json.getString("unitTo")
-      val  value = json.getDouble("value")
-      val converted = value *2
+      val from = json.getString("from")
+      val to = json.getString("to")
+      val  value = json.getString("value")
+      val converted = converter.convert(from, to, value)
 
       it.response().setStatusCode(200).end(Response(converted).toJson())
 
