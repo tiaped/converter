@@ -4,13 +4,11 @@ import io.vertx.core.AbstractVerticle
 import io.vertx.core.Future
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.BodyHandler
-import io.vertx.kotlin.core.json.Json
-import io.vertx.kotlin.core.json.get
 
 class MainVerticle : AbstractVerticle() {
 
   override fun start(startFuture: Future<Void>) {
-    val converter = ConverterService()
+    val converter = SimpleConverterService()
     converter.register(meterPerSecondToKilometersPerHour)
     converter.register(kilometerPerHourToMinutePerKilometer)
     var server = vertx.createHttpServer()
