@@ -29,7 +29,15 @@ class TestFormula {
     var ref = listOf(
       Formula(BigDecimal("1.0"), listOf(
         FormulaPart(length, length.units.stream().filter { it.symbol=="km" }.findFirst().get(),1 ),
-        FormulaPart(time, time.units.stream().filter { it.symbol=="m" }.findFirst().get(),1 )
+        FormulaPart(time, time.units.stream().filter { it.symbol=="h" }.findFirst().get(),1 )
+      ))
+    )
+    Assertions.assertEquals(ref, parse)
+    parse = parser.parse("1 km.h")
+    ref = listOf(
+      Formula(BigDecimal("1.0"), listOf(
+        FormulaPart(length, length.units.stream().filter { it.symbol=="km" }.findFirst().get(),1 ),
+        FormulaPart(time, time.units.stream().filter { it.symbol=="h" }.findFirst().get(),1 )
       ))
     )
     Assertions.assertEquals(ref, parse)
